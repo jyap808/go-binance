@@ -39,7 +39,6 @@ func (b *Binance) GetPrices() (prices []*Prices, err error) {
 	}
 
 	prices = make([]*Prices, 0)
-	//	var response jsonResponse
 	if err = json.Unmarshal(r, &prices); err != nil {
 		return
 	}
@@ -50,19 +49,19 @@ func (b *Binance) GetPrices() (prices []*Prices, err error) {
 	return
 }
 
-// GetTradePairs Returns all trade pair data
-//func (b *Binance) GetTradePairs() (pairs []Pair, err error) {
-//	r, err := b.client.do("GET", "GetTradePairs", "", false)
-//	if err != nil {
-//		return
-//	}
-//	var response jsonResponse
-//	if err = json.Unmarshal(r, &response); err != nil {
-//		return
-//	}
-//	if err = handleErr(response); err != nil {
-//		return
-//	}
-//	err = json.Unmarshal(response.Result, &pairs)
-//	return
-//}
+// Exchange filters for all symbols
+func (b *Binance) GetExchangeInfo() (exchangeinfo ExchangeInfo, err error) {
+	r, err := b.client.do("GET", "v1/exchangeInfo", "", false)
+	if err != nil {
+		return
+	}
+
+	if err = json.Unmarshal(r, &exchangeinfo); err != nil {
+		return
+	}
+	if err != nil {
+		return
+	}
+
+	return
+}
