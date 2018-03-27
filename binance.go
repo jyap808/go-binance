@@ -65,3 +65,21 @@ func (b *Binance) GetExchangeInfo() (exchangeinfo ExchangeInfo, err error) {
 
 	return
 }
+
+// GetAllAssets Returns all assets data
+func (b *Binance) GetAllAssets() (assets []*Assets, err error) {
+	r, err := b.client.do("GET", "https://www.binance.com/assetWithdraw/getAllAsset.html", "", false)
+	if err != nil {
+		return
+	}
+
+	assets = make([]*Assets, 0)
+	if err = json.Unmarshal(r, &assets); err != nil {
+		return
+	}
+	if err != nil {
+		return
+	}
+
+	return
+}
