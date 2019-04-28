@@ -49,6 +49,24 @@ func (b *Binance) GetPrices() (prices []*Prices, err error) {
 	return
 }
 
+// GetPrices Returns all prices data
+func (b *Binance) GetTickerDaily() (tickerDailys []*TickerDaily, err error) {
+	r, err := b.client.do("GET", "v1/ticker/24hr", "", false)
+	if err != nil {
+		return
+	}
+
+	tickerDailys = make([]*TickerDaily, 0)
+	if err = json.Unmarshal(r, &tickerDailys); err != nil {
+		return
+	}
+	if err != nil {
+		return
+	}
+
+	return
+}
+
 // Exchange filters for all symbols
 func (b *Binance) GetExchangeInfo() (exchangeinfo ExchangeInfo, err error) {
 	r, err := b.client.do("GET", "v1/exchangeInfo", "", false)
